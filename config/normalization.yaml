@@ -1,0 +1,41 @@
+# Email Normalization Configuration
+# Patterns for cleaning raw email text
+
+# Email signature patterns (regex)
+signature_patterns:
+  - 'Sent from my (iPhone|iPad|Android|BlackBerry)'
+  - 'Get Outlook for (iOS|Android)'
+  - '(Best regards|Kind regards|Regards|Sincerely|Thanks|Cheers|Yours truly),?\s*\n.*'
+  - 'Sent from Yahoo Mail.*'
+  - 'Sent from my mobile device'
+  - 'Sent from Windows Mail'
+
+# Legal disclaimer patterns
+disclaimer_patterns:
+  - 'CONFIDENTIAL:?.*'
+  - 'DISCLAIMER:?.*'
+  - 'This email and any attachments.*confidential.*'
+  - 'This email may contain privileged.*'
+  - 'The information contained in this.*confidential.*'
+  - '---+\s*CONFIDENTIAL.*'
+
+# Greeting patterns (optional, less aggressive)
+greeting_patterns:
+  - '^(Hi|Hello|Dear|Good morning|Good afternoon|Good evening)\s+[A-Z][a-z]+,?\s*\n'
+  - '^(Hi|Hello)\s+there,?\s*\n'
+  - '^(Dear|To)\s+(Sir|Madam|Team|Hotel|Reservations),?\s*\n'
+
+# Whitespace normalization settings
+whitespace:
+  max_consecutive_newlines: 2
+  tab_to_spaces: 4
+  collapse_multiple_spaces: true
+  trim_leading_trailing: true
+
+# Normalization options
+options:
+  remove_signatures: true
+  remove_disclaimers: true
+  remove_greetings: false  # More conservative
+  normalize_whitespace: true
+  preserve_case: true
