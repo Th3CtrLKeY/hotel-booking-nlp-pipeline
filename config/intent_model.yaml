@@ -1,0 +1,46 @@
+# Intent Classification Model Configuration
+
+# Base model configuration
+model:
+  base_model: "sentence-transformers/all-MiniLM-L6-v2"
+  num_classes: 6
+  hidden_dropout: 0.1
+  
+# Training hyperparameters
+training:
+  epochs: 15
+  batch_size: 8
+  learning_rate: 2e-5
+  weight_decay: 0.01
+  warmup_steps: 50
+  max_grad_norm: 1.0
+  
+# Inference configuration
+inference:
+  confidence_threshold: 0.6
+  use_rule_fallback: true
+  
+# Intent labels (must match schema.json)
+intents:
+  - booking_request
+  - booking_modification
+  - cancellation
+  - price_inquiry
+  - availability_check
+  - other
+
+# Data split
+data:
+  train_split: 0.8
+  test_split: 0.2
+  random_seed: 42
+  
+# Evaluation
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
+  save_confusion_matrix: true
+  save_classification_report: true
