@@ -1,0 +1,61 @@
+# Hotel-specific configuration
+# Changing these values affects system behavior WITHOUT retraining models
+
+hotel_id: "H001"
+hotel_name: "Sample Hotel"
+
+# Age threshold: guests below this age are classified as children
+child_adult_age: 12
+
+# Default occupancy per room type
+# Used when guest count is not explicitly mentioned
+default_room_occupancy:
+  single: 1
+  double: 2
+  twin: 2
+  suite: 2
+  family: 4
+  deluxe: 2
+  standard: 2
+
+# Group booking classification
+# Bookings meeting or exceeding this threshold are marked as group bookings
+group_booking:
+  room_threshold: 7        # Number of rooms
+  guest_threshold: 15      # Number of total guests (alternative criterion)
+
+# Room type semantic mapping
+# Maps various phrasings to canonical room types
+room_type_aliases:
+  single:
+    - "single"
+    - "single room"
+    - "one bed"
+    - "solo"
+  double:
+    - "double"
+    - "double room"
+    - "double bed"
+    - "queen"
+    - "king"
+    - "matrimonial"
+  twin:
+    - "twin"
+    - "twin room"
+    - "two beds"
+    - "2 beds"
+  suite:
+    - "suite"
+    - "executive suite"
+    - "deluxe suite"
+  family:
+    - "family"
+    - "family room"
+    - "quad"
+
+# Date parsing configuration
+date_parsing:
+  # Reference timezone for relative dates
+  timezone: "UTC"
+  # Prefer future dates for ambiguous expressions
+  prefer_dates_from: "future"
