@@ -59,3 +59,6 @@ build/
 # Temporary files
 *.tmp
 temp/
+
+# Extra files (documentation, not for repo)
+extra files/
