@@ -50,7 +50,7 @@ def main():
     # Paths
     project_root = Path(__file__).parent.parent
     config_path = project_root / "config" / "intent_model.yaml"
-    train_data = project_root / "data" / "processed" / "intent_train.jsonl"
+    train_data = project_root / "data" / "processed" / "intent_train_augmented.jsonl"
     test_data = project_root / "data" / "processed" / "intent_test.jsonl"
     output_dir = project_root / "models" / "intent_classifier"
     results_dir = project_root / "results"
