@@ -1,40 +1,43 @@
-{"text": "Booking request: 2026-11-01 to 2026-11-05. Single room. High floor please.", "intent": "booking_request"}
-{"text": "Please cancel booking 123.", "intent": "cancellation"}
-{"text": "Is parking free?", "intent": "other"}
-{"text": "Can I move my booking to next weekend? Ref #123.", "intent": "booking_modification"}
-{"text": "We need a room for 2 nights. 2 adults and an infant (1 year old). Start date: April 5, 2026.", "intent": "booking_request"}
-{"text": "Hi,\n\nI need to book a room for my parents. They are arriving on Dec 20, 2026 and staying for a week. 2 adults, ground floor preferred.", "intent": "booking_request"}
-{"text": "Hi,\n\nWe need to book 8 rooms for a family reunion. July 10-14, 2026. 16 adults total.", "intent": "booking_request"}
-{"text": "Cancel reservation. ID: 4421.", "intent": "cancellation"}
-{"text": "Can I add breakfast to my reservation? Booking ID 12345.", "intent": "booking_modification"}
-{"text": "Hi,\n\nI need a room for 2026-08-08. Just 1 night. King bed.", "intent": "booking_request"}
-{"text": "Can I get a discount if I stay for a month?", "intent": "price_inquiry"}
-{"text": "I need to change my room type to a twin. Ref #777.", "intent": "booking_modification"}
-{"text": "Hi,\n\nI'd like to book a room for a colleague. Mr. Green. Single room, 4 nights starting Feb 10, 2026.\n\nBest,\nSarah", "intent": "booking_request"}
-{"text": "Do you have availability for May 12-14?", "intent": "availability_check"}
-{"text": "Please cancel the reservation for Mr. Smith. He can't make it.", "intent": "cancellation"}
-{"text": "Hi,\n\nI need a room for 2 nights. Arriving May 12, 2026. Single occupancy.", "intent": "booking_request"}
-{"text": "Hello,\n\nI need to amend my booking. I need to upgrade to a suite if possible. Confirmation #7721.", "intent": "booking_modification"}
-{"text": "I think I left my charger in room 202. Can you check?", "intent": "other"}
-{"text": "Do you have a bar?", "intent": "other"}
-{"text": "Do you have a shuttle to the city center?", "intent": "other"}
-{"text": "Do you have any rooms available for the weekend of August 1st? We have a small dog.", "intent": "availability_check"}
-{"text": "Please reserve a room for me. 2026-12-01 to 2026-12-05. Single.", "intent": "booking_request"}
-{"text": "What is the price for a deluxe room including breakfast?", "intent": "price_inquiry"}
+{"text": "Please book a room for me. Arriving tomorrow, staying 2 nights. King bed.", "intent": "booking_request"}
+{"text": "Booking: 3 Double Rooms, June 1-5, 2026. 6 adults.", "intent": "booking_request"}
+{"text": "Check availability: King room, Dec 25th.", "intent": "availability_check"}
 {"text": "Hi,\n\nI'd like to book a room for July 4th weekend (July 3-6). 2 adults, 2 kids (12 and 15). We need 2 queen beds.", "intent": "booking_request"}
-{"text": "Do you have any availability for a deluxe king room on August 20th?", "intent": "availability_check"}
-{"text": "What is the cost of an extra bed?", "intent": "price_inquiry"}
-{"text": "Hello,\n\nI need a room for a business meeting. Nov 5-6. Quiet room preferred.", "intent": "booking_request"}
-{"text": "Cancel reservation for Doe. We found another hotel.", "intent": "cancellation"}
-{"text": "Hi,\n\nI need a room for tonight. 2 adults. Late arrival.", "intent": "booking_request"}
-{"text": "Are you fully booked for Christmas?", "intent": "availability_check"}
+{"text": "Do you have rooms with sea view available next week?", "intent": "availability_check"}
+{"text": "Please cancel the reservation for Mr. Smith. He can't make it.", "intent": "cancellation"}
 {"text": "Hello,\n\nI want to book a suite for my family. 2 adults, 3 kids (ages 2, 5, 7). Dates: Sept 10-15, 2026.", "intent": "booking_request"}
-{"text": "Hi,\n\nI need a room for tonight. Late check-in. Just me.", "intent": "booking_request"}
-{"text": "book room. 2 adults. tonight.", "intent": "booking_request"}
+{"text": "Booking request: Suite, 2 adults, 1 child (2 years). May 1-4, 2027.", "intent": "booking_request"}
+{"text": "Hi,\n\nI'd like to book a room for 2 adults and 2 kids (10 and 12). July 4-8, 2026. Prefer a suite.", "intent": "booking_request"}
+{"text": "Is there a safe in the room?", "intent": "other"}
+{"text": "I need to push my dates back by one week. New check-in: Aug 15. Ref #QWERTY.", "intent": "booking_modification"}
+{"text": "Booking: 4 Standard Rooms, April 1-4, 2026. 8 guests.", "intent": "booking_request"}
+{"text": "Hi,\n\nWe need to book a block of 12 rooms for a reunion. July 4th weekend 2027.", "intent": "booking_request"}
+{"text": "Do you have a shuttle to the city center?", "intent": "other"}
+{"text": "Hi,\n\nNeed a room for tonight. 2 people.", "intent": "booking_request"}
 {"text": "Please cancel my reservation #88421 immediately.", "intent": "cancellation"}
+{"text": "Subject: Rescheduling\n\nI need to move my booking to the following week. New dates: June 20-22. Ref #1122.", "intent": "booking_modification"}
+{"text": "Please reserve a room for me. 2026-12-01 to 2026-12-05. Single.", "intent": "booking_request"}
+{"text": "I need a room for Oct 10th for 2 nights. 2 adults.\n\nAlso, can you book me in for Nov 10th as well? Just 1 night that time. Same guests.", "intent": "booking_request"}
+{"text": "Please cancel booking 123.", "intent": "cancellation"}
+{"text": "Hi,\n\nWe need to book accommodation for our tour group. 8 twin rooms and 4 single rooms. Arriving May 10, 2027, leaving May 12, 2027.\n\nRegards,\nTravel Co.", "intent": "booking_request"}
+{"text": "What is the cost for a family room?", "intent": "price_inquiry"}
+{"text": "Cancel reservation 999. Found a cheaper hotel.", "intent": "cancellation"}
+{"text": "Subject: Reservation Inquiry\n\nTo Whom It May Concern,\n\nI wish to reserve accommodation for my family. We require a family suite for 2 adults and 2 children (ages 5 and 9). Check-in: June 10, 2026. Check-out: June 15, 2026.\n\nSincerely,\nMrs. Smith", "intent": "booking_request"}
 {"text": "I need to upgrade my room to a suite. My wife is joining me. Ref: GUEST123.", "intent": "booking_modification"}
-{"text": "book room. 2 ppl. tomorrow.", "intent": "booking_request"}
-{"text": "Hi,\n\nI'd like to make a reservation for 2026-09-01. 3 nights. Single room.", "intent": "booking_request"}
-{"text": "I need a room for 2026-10-10. 1 night.", "intent": "booking_request"}
-{"text": "I need to fix the name on my booking. It should be Johnson, not Johnsen. Ref #123.", "intent": "booking_modification"}
-{"text": "Price for a double room next week?", "intent": "price_inquiry"}
+{"text": "Please modify reservation #55512. We need to add a second room (double) for the same dates.", "intent": "booking_modification"}
+{"text": "Do you have any rooms with a fireplace?", "intent": "availability_check"}
+{"text": "I'd like to book a room for tonight. I'm at the airport now.", "intent": "booking_request"}
+{"text": "Can I change my dates to next month? Same days of the week. Ref #123.", "intent": "booking_modification"}
+{"text": "Hello,\n\nI'd like to book a room for a business trip. October 5-8. I need a desk in the room.", "intent": "booking_request"}
+{"text": "Price check: Standard room, 2 adults, May 1st weekend.", "intent": "price_inquiry"}
+{"text": "Can you recommend a good restaurant nearby?", "intent": "other"}
+{"text": "How much for a standard room? Just looking for a rough estimate.", "intent": "price_inquiry"}
+{"text": "I need to cancel. Sorry for the inconvenience.", "intent": "cancellation"}
+{"text": "Hi,\n\nI'd like to book a room for myself for July 1-5, 2026. Standard double.\n\nAlso, I need to book a separate room for my colleague who is visiting later, from August 1-5, 2026. Single room for him.\n\nCheers.", "intent": "booking_request"}
+{"text": "I need to add a guest to my room. There will be 2 of us now. Res #999.", "intent": "booking_modification"}
+{"text": "Hi,\n\nI need to book 6 rooms for our staff. July 15-18, 2026.", "intent": "booking_request"}
+{"text": "Hi,\n\nI need a room for a month. Starting Feb 1, 2027. Single person.", "intent": "booking_request"}
+{"text": "Hi,\n\nRoom for 2 nights. Arriving Saturday. 2 adults, 1 kid (3).", "intent": "booking_request"}
+{"text": "Hi,\n\nI need to book two separate stays.\n\nFirst: July 1-3, 2026 (Double room)\nSecond: July 10-12, 2026 (Single room)\n\nThanks.", "intent": "booking_request"}
+{"text": "Is parking free?", "intent": "other"}
+{"text": "Do you have a honeymoon suite available for Feb 14, 2027?", "intent": "availability_check"}
+{"text": "How much is the penthouse suite for New Year's Eve?", "intent": "price_inquiry"}

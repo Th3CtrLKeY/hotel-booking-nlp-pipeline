@@ -18,11 +18,11 @@ default_room_occupancy:
   deluxe: 2
   standard: 2
 
-# Group booking classification
-# Bookings meeting or exceeding this threshold are marked as group bookings
+# Group Booking Classification
+# A booking is considered "group" if it meets either threshold
 group_booking:
-  room_threshold: 7        # Number of rooms
-  guest_threshold: 15      # Number of total guests (alternative criterion)
+  min_rooms: 4        # Minimum number of rooms to classify as group
+  min_guests: 12      # Minimum total guests to classify as group
 
 # Room type semantic mapping
 # Maps various phrasings to canonical room types

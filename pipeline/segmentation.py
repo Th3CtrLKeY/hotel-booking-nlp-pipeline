@@ -6,76 +6,223 @@ Detects and splits multiple booking requests within a single email.
 Example:
     "I need a double room July 10-12, and also a suite Aug 5-7"
     → Split into 2 segments for independent processing
-
-Methods:
-1. Rule-based: Paragraph breaks, coordinating conjunctions
-2. Semantic: Sentence embedding similarity clustering
 """
 
 from typing import List, Dict, Any
-from sentence_transformers import SentenceTransformer
+import re
 
 
 class EmailSegmenter:
     """
     Segments emails containing multiple booking requests.
     
-    Uses both heuristic rules and semantic similarity.
+    Uses rule-based markers to detect separate booking requests.
     """
     
-    def __init__(
-        self,
-        model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
-        similarity_threshold: float = 0.6
-    ):
-        """
-        Args:
-            model_name: Sentence transformer model for embeddings
-            similarity_threshold: Minimum similarity for same segment
-        """
-        self.model_name = model_name
-        self.similarity_threshold = similarity_threshold
-        self.model = None
+    # Explicit segment markers (in order of priority)
+    SEGMENT_MARKERS = [
+        # Numbered lists
+        r'^\s*(\d+)[.)]\s+',  # "1) ...", "1. ...", "2) ..."
+        
+        # Trip labels
+        r'\b(first|second|third)\s+(trip|stay|booking|visit):?',
+       
+        # Explicit separators
+        r'\balso\b[,;:]?\s+',
+        r'\badditionally\b[,;:]?\s+',
+        r'\bfurthermore\b[,;:]?\s+',
+       
+        # "Separate" indicators
+        r'\bseparate(ly)?\s+(i|we|they)\s+(need|want|require)',
+    ]
     
-    def _load_model(self):
-        """Lazy load sentence transformer."""
-        if self.model is None:
-            self.model = SentenceTransformer(self.model_name)
+    def __init__(self):
+        """Initialize segmenter with default configuration."""
+        pass
     
-    def segment(self, text: str) -> List[Dict[str, Any]]:
+    def segment(self, text: str, intent: str = "booking_request") -> List[Dict[str, Any]]:
         """
         Segment email into individual booking requests.
         
         Args:
             text: Normalized email text
+            intent: Email intent (booking_request, cancellation, etc.)
             
         Returns:
-            List of segments, each containing:
+            List of segments for booking_request intent.
+            Empty list for other intents (no segmentation needed).
+            
+            Each segment contains:
             - segment_id: int
             - text: str
             - start_char: int
             - end_char: int
+            - method: str (detection method used)
         """
-        # Simple heuristic: split by paragraphs and conjunctions
-        # TODO: Implement full segmentation in Phase 5
+        # Only segment booking requests
+        if intent != "booking_request":
+            return []
         
-        # For now, treat entire email as single segment
+        # Try rule-based detection
+        segments = self._segment_by_rules(text)
+        
+        # If no segments found, return entire email as single segment
+        if not segments:
+            segments = [{
+                "text": text,
+                "start": 0,
+                "end": len(text),
+                "method": "default"
+            }]
+        
+        # Convert to output format
         return [
             {
-                "segment_id": 0,
-                "text": text,
-                "start_char": 0,
-                "end_char": len(text),
-                "method": "default"
+                "segment_id": i,
+                "text": seg["text"],
+                "start_char": seg["start"],
+                "end_char": seg["end"],
+                "method": seg["method"]
             }
+            for i, seg in enumerate(segments)
         ]
     
-    def _segment_by_rules(self, text: str) -> List[str]:
-        """Rule-based segmentation using paragraph breaks and conjunctions."""
-        # TODO: Implement in Phase 5
-        return [text]
+    def _segment_by_rules(self, text: str) -> List[Dict]:
+        """
+        Split by explicit segmentation markers.
+        
+        Returns:
+            List of dicts with keys: text, start, end, method
+        """
+        # Try numbered lists first (highest confidence)
+        segments = self._split_by_numbered_lists(text)
+        if len(segments) > 1:
+            return segments
+        
+        # Try explicit separators
+        segments = self._split_by_separators(text)
+        if len(segments) > 1:
+            return segments
+        
+        # Try trip labels
+        segments = self._split_by_trip_labels(text)
+        if len(segments) > 1:
+            return segments
+        
+        # No segments found
+        return []
     
-    def _segment_by_similarity(self, sentences: List[str]) -> List[List[str]]:
-        """Cluster sentences by semantic similarity."""
-        # TODO: Implement in Phase 5
-        return [sentences]
+    def _split_by_numbered_lists(self, text: str) -> List[Dict]:
+        """
+       Detect numbered lists: "1) ...", "2) ...", etc.
+        """
+        lines = text.split('\n')
+        segments = []
+        current_segment = []
+        current_start = 0
+        in_numbered_list = False
+        
+        for i, line in enumerate(lines):
+            # Check if line starts with a number
+            match = re.match(r'^\s*(\d+)[.)]\s+', line)
+            
+            if match:
+                # New numbered item
+                if current_segment and in_numbered_list:
+                    # Save previous segment
+                    segment_text = '\n'.join(current_segment)
+                    segments.append({
+                        "text": segment_text.strip(),
+                        "start": current_start,
+                        "end": current_start + len(segment_text),
+                        "method": "numbered_list"
+                    })
+                    current_start += len(segment_text) + 1  # +1 for newline
+                
+                # Start new segment
+                current_segment = [line]
+                in_numbered_list = True
+            else:
+                # Continue current segment
+                current_segment.append(line)
+        
+        # Add last segment if we found numbered lists
+        if in_numbered_list and current_segment:
+            segment_text = '\n'.join(current_segment)
+            segments.append({
+                "text": segment_text.strip(),
+                "start": current_start,
+                "end": current_start + len(segment_text),
+                "method": "numbered_list"
+            })
+        
+        return segments if len(segments) > 1 else []
+    
+    def _split_by_separators(self, text: str) -> List[Dict]:
+        """
+        Split on explicit separators: "Also", "Additionally", "Furthermore".
+        
+        Must be at start of sentence/paragraph to avoid false positives.
+        """
+        separator_patterns = [
+            r'\n\s*also\b[,;:]?\s+',
+            r'\n\s*additionally\b[,;:]?\s+',
+            r'\n\s*furthermore\b[,;:]?\s+',
+        ]
+        
+        for pattern in separator_patterns:
+            matches = list(re.finditer(pattern, text, re.IGNORECASE))
+            if matches:
+                segments = []
+                last_end = 0
+                
+                for match in matches:
+                    # Add segment before separator
+                    if match.start() > last_end:
+                        segments.append({
+                            "text": text[last_end:match.start()].strip(),
+                            "start": last_end,
+                            "end": match.start(),
+                            "method": "separator"
+                        })
+                    last_end = match.end()
+                
+                # Add final segment
+                if last_end < len(text):
+                    segments.append({
+                        "text": text[last_end:].strip(),
+                        "start": last_end,
+                        "end": len(text),
+                        "method": "separator"
+                    })
+                
+                if len(segments) > 1:
+                    return segments
+        
+        return []
+    
+    def _split_by_trip_labels(self, text: str) -> List[Dict]:
+        """
+        Split by "First trip", "Second trip", etc.
+        """
+        pattern = r'\b(first|second|third)\s+(trip|stay|booking|visit):?'
+        matches = list(re.finditer(pattern, text, re.IGNORECASE))
+        
+        if len(matches) >= 2:
+            segments = []
+            
+            for i, match in enumerate(matches):
+                start = match.start()
+                # Find end (next match or end of text)
+                end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+                
+                segments.append({
+                    "text": text[start:end].strip(),
+                    "start": start,
+                    "end": end,
+                    "method": "trip_labels"
+                })
+            
+            return segments
+        
+        return []
